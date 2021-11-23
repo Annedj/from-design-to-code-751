@@ -1,0 +1,18 @@
+<div class="movie-card" data-controller="edit-movie">
+  <%= image_tag movie.image_url %>
+
+  <div class="movie-infos" data-edit-movie-target="infos">
+  <% unless movie.errors.any? %>
+    <h2 title="<%= movie.title %> (<%= movie.year %>)">
+      <%= movie.title %><small>(<%= movie.year %>)</small>
+    </h2>
+    <% end %>
+    <i class="fas fa-pen fa-xs ml-2" data-action="click->edit-movie#showForm"></i>
+  </div>
+
+  <%= simple_form_for movie, html: { class: movie.errors.any? ? '' : 'd-none', data: { edit_movie_target: 'form', action: 'submit->edit-movie#submit' } } do |f| -%>
+    <%= f.input :title %>
+    <%= f.input :year %>
+    <%= f.submit "Update movie", class: "btn btn-sm btn-primary btn-block mt-2" %>
+  <% end %>
+</div>
